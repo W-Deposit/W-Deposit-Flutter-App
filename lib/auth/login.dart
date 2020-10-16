@@ -94,7 +94,7 @@ Container(
 
             ),
 Container(
-  child: Text('Creer un compte?',style: TextStyle(color: Color(0xffFFCC2C),fontStyle:FontStyle.italic)),
+  child: Text('Creer un compte?',style: TextStyle(color: Color(0xff00ACED),fontStyle:FontStyle.italic,)),
 )
 
           ],

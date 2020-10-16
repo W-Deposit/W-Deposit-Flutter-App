@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
               fontSize: 16.0,
               color: Color(0xff2E41),
             ),
-              titlePadding:EdgeInsets.only(bottom: 70)
+              titlePadding:EdgeInsets.only(bottom: 65)
           ),
           title: "Vos transactions sont très sécurisées avec l'application W-Deposit.",
           body: "",
