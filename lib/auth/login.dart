@@ -24,36 +24,46 @@ class _LoginState extends State<Login> {
         backgroundColor: Color(0xff00ACED),
       ),
       body:Container(
-        padding: const EdgeInsets.all(35.0),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/money.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        padding: const EdgeInsets.fromLTRB(35.0,378,35.0,0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-Container(
-  child:Image.asset(
-    'assets/logo.png',
-  ),
 
-),
 
             TextField(
               controller: phoneController,
+              // style:
               decoration: const InputDecoration(
                // contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                labelText: 'Email :',
+                filled: true,
+                fillColor: Colors.white,
+                  hintText: 'Email',
+                  hintStyle: TextStyle(color: Colors.black54),
               ),
 
             ),
-
+          SizedBox(
+            height: 10,
+          ),
             TextField(
               controller: passwordController,
               decoration: const InputDecoration(
-                labelText: 'Mot de passe :',
+                hintText: 'Mot de passe',
+                filled: true,
+                fillColor: Colors.white,
+                hintStyle: TextStyle(color: Colors.black54),
               ),
               obscureText: true,
 
             ),
             SizedBox(
-              height: 30,
+              height: 10,
             ),
             SizedBox(
               child:Container(
@@ -61,7 +71,7 @@ Container(
                 height: 55,
                 child: FlatButton(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)),
+                      borderRadius: BorderRadius.circular(8)),
                   onPressed: () async {
                     // On button presed
 
@@ -84,12 +94,10 @@ Container(
               ),
 
             ),
-SizedBox(
-  height: 5,
-),
+
 Container(
   child: FlatButton(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+
     onPressed: () async {
       // On button presed
 
@@ -103,7 +111,7 @@ Container(
       "Creer un compte",
       style: TextStyle(
 
-        color: Color(0xff7579e7),fontStyle:FontStyle.italic,decoration: TextDecoration.underline,fontSize: 15
+        color: Colors.white,fontStyle:FontStyle.italic,decoration: TextDecoration.underline,fontSize: 15
       ),
     ),
 

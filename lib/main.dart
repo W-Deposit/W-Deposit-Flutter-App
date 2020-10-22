@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text(
 
-                "Commencer",
+                "Demarer",
                 style: TextStyle(
                 fontWeight: FontWeight.bold,
                   fontSize: 16,
