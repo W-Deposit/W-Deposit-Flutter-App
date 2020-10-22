@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'registration.dart';
 import 'dart:convert';
 
-class Login extends StatefulWidget {
+class Registration extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _RegistrationState createState() => _RegistrationState();
 }
 
-class _LoginState extends State<Login> {
+class _RegistrationState extends State<Registration> {
   bool _isLoading = false;
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -19,51 +18,61 @@ class _LoginState extends State<Login> {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Se connecter",style: TextStyle(fontSize: 16),),
+        title: Text("Creer un Compte W-Deposit",style: TextStyle(fontSize: 16),),
         centerTitle: true,
         backgroundColor: Color(0xff00ACED),
       ),
       body:Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/money.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        padding: const EdgeInsets.fromLTRB(35.0,378,35.0,0),
+        padding: const EdgeInsets.all(35.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
+            Container(
 
-            TextField(
-              controller: phoneController,
-              // style:
-              decoration: const InputDecoration(
-               // contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                filled: true,
-                fillColor: Colors.white,
-                  hintText: 'Email',
-                  hintStyle: TextStyle(color: Colors.black54),
+              child:Image.asset(
+                'assets/logo1.jpeg',
+                height: 130,
+                width: 800,
               ),
 
             ),
-          SizedBox(
-            height: 10,
-          ),
+
+            TextField(
+              controller: phoneController,
+              decoration: const InputDecoration(
+                // contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                labelText: 'Email :',
+              ),
+
+            ),
+
             TextField(
               controller: passwordController,
               decoration: const InputDecoration(
-                hintText: 'Mot de passe',
-                filled: true,
-                fillColor: Colors.white,
-                hintStyle: TextStyle(color: Colors.black54),
+                labelText: 'Numero de telephone :',
+              ),
+
+
+            ),
+            TextField(
+              controller: passwordController,
+              decoration: const InputDecoration(
+                labelText: 'Mot de passe :',
+              ),
+              obscureText: true,
+
+            ),
+            TextField(
+              controller: passwordController,
+              decoration: const InputDecoration(
+                labelText: 'Confrimer votre mot de passe :',
               ),
               obscureText: true,
 
             ),
             SizedBox(
-              height: 10,
+              height: 30,
             ),
             SizedBox(
               child:Container(
@@ -71,7 +80,7 @@ class _LoginState extends State<Login> {
                 height: 55,
                 child: FlatButton(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(5)),
                   onPressed: () async {
                     // On button presed
 
@@ -81,7 +90,7 @@ class _LoginState extends State<Login> {
                     );
                   },
                   child: Text(
-                    "Connexion",
+                    "Soumettre",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15.5,
@@ -94,30 +103,21 @@ class _LoginState extends State<Login> {
               ),
 
             ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
 
-Container(
-  child: FlatButton(
+              child:new InkWell(
+                onTap: () {
 
-    onPressed: () async {
-      // On button presed
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Registration()),
-      );
-    },
-    child: Text(
-
-      "Creer un compte",
-      style: TextStyle(
-
-        color: Colors.white,fontStyle:FontStyle.italic,decoration: TextDecoration.underline,fontSize: 15
-      ),
-    ),
-
-
-  ),
-)
+                },
+                child: new Padding(
+                  padding: new EdgeInsets.all(10.0),
+                  child: new Text("J ai deja un compte We-Deposit?",style: TextStyle(color: Color(0xff7579e7),fontStyle:FontStyle.italic,decoration: TextDecoration.underline,fontSize: 15)),
+                ),
+              ),
+            )
 
           ],
 

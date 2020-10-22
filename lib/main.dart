@@ -95,13 +95,13 @@ class _MyHomePageState extends State<MyHomePage> {
               fontSize: 16.0,
               color: Color(0xff2E41),
             ),
-              titlePadding:EdgeInsets.only(bottom: 65)
+              titlePadding:EdgeInsets.only(bottom: 48)
           ),
           title: "Vos transactions sont très sécurisées avec l'application W-Deposit.",
           body: "",
           footer:SizedBox(
             width: 300,
-            height: 50,
+            height: 60,
             child: FlatButton(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
               onPressed: () async {
@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text(
 
-                "Commencer",
+                "Demarer",
                 style: TextStyle(
                 fontWeight: FontWeight.bold,
                   fontSize: 16,
