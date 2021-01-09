@@ -17,13 +17,9 @@ class _RegistrationState extends State<Registration> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text("Creer un Compte W-Deposit",style: TextStyle(fontSize: 16),),
-        centerTitle: true,
-        backgroundColor: Color(0xff00ACED),
-      ),
+
       body:Container(
-        padding: const EdgeInsets.all(35.0),
+        padding: const EdgeInsets.only(top: 80,left: 30,right: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
