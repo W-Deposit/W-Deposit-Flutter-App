@@ -120,7 +120,7 @@ this.setState(() {
                           },
                         child: Text(
 
-                        "Creer un compte We-deposit",
+                        "Je n'ai pas de compte? S'inscrire.",
                         style: TextStyle(
                           fontStyle: FontStyle.italic,
                           fontSize: 12.5,

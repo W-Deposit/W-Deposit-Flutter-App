@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'package:google_fonts/google_fonts.dart';
 
 class Registration extends StatefulWidget {
   @override
@@ -17,56 +18,69 @@ class _RegistrationState extends State<Registration> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        centerTitle: true,
+        title: Text('Créer un compte'),
+        leading: Container(),
+      ),
       body:Container(
-        padding: const EdgeInsets.only(top: 120,left: 30,right: 30),
+        padding: const EdgeInsets.only(top: 30,left: 30,right: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
+Container(
+  padding: EdgeInsets.only(top:20,bottom: 20 ),
+ child: Text('Créez un compte We-Deposit pour commencer vos opérations bancaires à distance.',style: GoogleFonts.lato(
+        textStyle: TextStyle( color:Colors.black87, letterSpacing: .5,fontSize: 19,fontWeight: FontWeight.bold),
+      ),),
+),
+Container(
+  child:    TextField(
+    controller: phoneController,
+    decoration: const InputDecoration(
+      // contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+      labelText: 'Email :',
+    ),
+
+  ),
+),
+
+Container(
+  padding: EdgeInsets.only(top:20 ),
+  child:TextField(
+    controller: passwordController,
+    decoration: const InputDecoration(
+      labelText: 'Numero de telephone :',
+    ),
+
+
+  ),
+),
+Container(
+  padding: EdgeInsets.only(top:20 ),
+  child:  TextField(
+  controller: passwordController,
+  decoration: const InputDecoration(
+    labelText: 'Mot de passe :',
+  ),
+  obscureText: true,
+
+),),
             Container(
+              padding: EdgeInsets.only(top:20 ),
+              child: TextField(
+                controller: passwordController,
+                decoration: const InputDecoration(
+                  labelText: 'Confrimer votre mot de passe :',
+                ),
+                obscureText: true,
 
-              child:Image.asset(
-                'assets/logo1.jpeg',
-                height: 130,
-                width: 800,
-              ),
-
+              ) ,
             ),
 
-            TextField(
-              controller: phoneController,
-              decoration: const InputDecoration(
-                // contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                labelText: 'Email :',
-              ),
 
-            ),
-
-            TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Numero de telephone :',
-              ),
-
-
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Mot de passe :',
-              ),
-              obscureText: true,
-
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Confrimer votre mot de passe :',
-              ),
-              obscureText: true,
-
-            ),
             SizedBox(
               height: 30,
             ),
