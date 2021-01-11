@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'registration.dart';
+import 'home.dart';
 import 'dart:convert';
+import 'package:kwadoo_mobile/Controllers/dabaseHelper.dart';
 import 'package:google_fonts/google_fonts.dart';
 class Login extends StatefulWidget {
   @override
@@ -9,10 +11,52 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
   bool _isLoading = false;
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-bool _onChange = false;
+  bool _onChange = false;
+  read() async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'token';
+    final value = prefs.get(key ) ?? 0;
+    if(value != '0'){
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => Home()));
+    }
+  }
+
+  @override
+  initState(){
+    read();
+  }
+  DatabaseHelper databaseHelper = new DatabaseHelper();
+  String msgStatus = '';
+
+  _onPressed(){
+    setState(() {
+      if(emailController.text.trim().toLowerCase().isNotEmpty &&
+          passwordController.text.trim().isNotEmpty ){
+        databaseHelper.loginData(emailController.text.trim().toLowerCase(),
+            passwordController.text.trim()).whenComplete((){
+          if(databaseHelper.status){
+            _showDialog();
+            msgStatus = 'Check email or password';
+          }else{
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => Home()));
+          }
+        });
+      }
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +93,7 @@ Container(
 ),
                     TextField(
                       controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: const InputDecoration(
                         hintText: 'Email',
                         filled: true,
@@ -64,7 +109,6 @@ Container(
                     TextField(
                       controller: passwordController,
                       decoration: const InputDecoration(
-
                         hintText: 'Mot de passe',
                         filled: true,
                         fillColor: Colors.white,
@@ -85,17 +129,8 @@ Container(
                       child:FlatButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8)),
-                        onPressed: () async {
-                          // On button presed
-this.setState(() {
-  _onChange==true;
-
-});
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(),
-                          );
-                        },
+                        onPressed: _onPressed
+,
                         child: Text(
 
                           "Connexion",
@@ -142,4 +177,28 @@ this.setState(() {
     );
   }
 
+  void _showDialog(){
+    showDialog(
+        context:context ,
+        builder:(BuildContext context){
+          return AlertDialog(
+            title: new Text('Failed'),
+            content:  new Text('Check your email or password'),
+            actions: <Widget>[
+              new RaisedButton(
+
+                child: new Text(
+                  'Close',
+                ),
+
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+
+              ),
+            ],
+          );
+        }
+    );
+  }
 }
