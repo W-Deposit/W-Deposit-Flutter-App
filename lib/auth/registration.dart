@@ -19,7 +19,7 @@ class _RegistrationState extends State<Registration> {
       resizeToAvoidBottomInset: false,
 
       body:Container(
-        padding: const EdgeInsets.only(top: 80,left: 30,right: 30),
+        padding: const EdgeInsets.only(top: 120,left: 30,right: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -110,7 +110,7 @@ class _RegistrationState extends State<Registration> {
                 },
                 child: new Padding(
                   padding: new EdgeInsets.all(10.0),
-                  child: new Text("J ai deja un compte We-Deposit?",style: TextStyle(color: Color(0xff7579e7),fontStyle:FontStyle.italic,decoration: TextDecoration.underline,fontSize: 15)),
+                  child: new Text("J'ai deja un compte We-Deposit.",style: TextStyle(color: Color(0xff7579e7),fontStyle:FontStyle.italic,decoration: TextDecoration.underline,fontSize: 15)),
                 ),
               ),
             )

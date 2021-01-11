@@ -21,118 +21,122 @@ bool _onChange = false;
       resizeToAvoidBottomPadding: true,
 
 
-      body: Container(
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.only(top: 370,left: 15,right: 15),
 
 
-padding: const EdgeInsets.only(top: 320,left: 15,right: 15),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/money.jpg"), fit: BoxFit.cover,)),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/money.jpg"), fit: BoxFit.cover,)),
 
-        child: Column(
-          children: [
-            SingleChildScrollView(
-              child: Column(
+          child: Column(
 
-                children: <Widget>[
+            children: [
+              SingleChildScrollView(
+                child: Column(
+
+                  children: <Widget>[
 
 Container(
-  padding: const EdgeInsets.only(bottom: 60),
+
+  padding: const EdgeInsets.only(bottom: 40),
   child: Text(
     "Bienvenue sur We-Deposit.Faites une transaction rapide et sécurisée sans aucun mouvement.",style: GoogleFonts.lato(
     textStyle: TextStyle( color:Colors.white, letterSpacing: .5,fontSize: 19),
   ),
   ),
 ),
-                  TextField(
-                    controller: emailController,
-                    decoration: const InputDecoration(
-                      hintText: 'Email',
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintStyle: TextStyle(color: Colors.black54),
+                    TextField(
+                      controller: emailController,
+                      decoration: const InputDecoration(
+                        hintText: 'Email',
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintStyle: TextStyle(color: Colors.black54),
+                      ),
+                      obscureText: false,
+
                     ),
-                    obscureText: false,
-
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextField(
-                    controller: passwordController,
-                    decoration: const InputDecoration(
-
-                      hintText: 'Mot de passe',
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintStyle: TextStyle(color: Colors.black54),
+                    SizedBox(
+                      height: 10,
                     ),
+                    TextField(
+                      controller: passwordController,
+                      decoration: const InputDecoration(
 
-            obscureText: true,
+                        hintText: 'Mot de passe',
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintStyle: TextStyle(color: Colors.black54),
+                      ),
+
+              obscureText: true,
 
 
 
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: 403,
-                    height: 55,
-                    child:FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      onPressed: () async {
-                        // On button presed
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      width: 403,
+                      height: 55,
+                      child:FlatButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        onPressed: () async {
+                          // On button presed
 this.setState(() {
   _onChange==true;
 
 });
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(),
-                        );
-                      },
-                      child: Text(
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(),
+                          );
+                        },
+                        child: Text(
 
-                        "Connexion",
+                          "Connexion",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.5,
+                            color: Colors.white,
+                          ),
+                        ),
+                        color: Color(0xff00ACED),
+
+                      ),
+                    ),
+                    Container(
+                      child:FlatButton(
+                          onPressed: () async{
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) => Registration()));
+                          },
+                        child: Text(
+
+                        "Creer un compte We-deposit",
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.5,
-                          color: Colors.white,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 12.5,
+                          color:Colors.white,
                         ),
                       ),
-                      color: Color(0xff00ACED),
 
-                    ),
-                  ),
-                  Container(
-                    child:FlatButton(
-                        onPressed: () async{
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) => Registration()));
-                        },
-                      child: Text(
-
-                      "Creer un compte We-deposit",
-                      style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        fontSize: 12.5,
-                        color:Colors.white,
-                      ),
+                      )
                     ),
 
-                    )
-                  ),
 
-
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
