@@ -97,10 +97,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
               titlePadding:EdgeInsets.only(bottom: 58)
           ),
-          title: "Vos transactions sont très sécurisées avec l'application W-Deposit.",
+          title: "Vos transactions sont très sécurisées avec l'application"+"\n"+" W-Deposit.",
           body: "",
           footer:SizedBox(
-            width: 300,
+            width: 350,
             height: 60,
             child: FlatButton(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),

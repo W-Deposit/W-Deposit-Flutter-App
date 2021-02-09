@@ -10,17 +10,24 @@ class DatabaseHelper{
   var token ;
 
   loginData(String email , String password) async{
+    Map donnee = {
+      "email": "$email",
+      "password" : "$password"
+    }
+;
+    String body = json.encode(donnee);
+
+
 
     String myUrl = "$serverUrl/login";
     final response = await  http.post(myUrl,
-        headers: {
-          'Accept':'application/json'
-        },
+        headers: {"Content-Type": "application/json"},
         body: {
-          "email": "$email",
-          "password" : "$password"
-        } ) ;
-    status = response.body.contains('error');
+          body
+        }
+
+        ) ;
+    status = response.body.contains('400');
 
     var data = json.decode(response.body);
 
