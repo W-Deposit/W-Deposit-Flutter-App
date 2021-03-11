@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kwadoo_mobile/widget.dart';
 import 'registration.dart';
 import 'forgot.dart';
 import 'home.dart';
@@ -17,112 +18,40 @@ class Home extends StatelessWidget {
         '/messages': (context) => Forgot(),
         '/settings': (context) => Registration()
       },
-      // home: Main(),
+     // home: Main(),
     );
   }
 }
 
 class Main extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
      centerTitle: true,
-          title: Text('Acceuil')
+          title: Text('Acceuil'),
       ),
-      body: Container(
-
-          child: ListView(
-            children: const <Widget>[
-              Card(child: ListTile(title: Text("ID: W-D0000000001",textAlign: TextAlign.center,))),
-
-              Card(
-                child: ListTile(
-                  dense:true,
-                  leading: FlutterLogo(),
-                  title: Text("ENVOYER DE L'ARGENT "),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  dense:true,
-                  leading: FlutterLogo(),
-                  title: Text('ACHAT UNITE'),
-                  trailing: Icon(Icons.more_vert),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  dense:true,
-                  leading: FlutterLogo(),
-                  title: Text('PAYER VOS FACTURES'),
-                  trailing: Icon(Icons.more_vert),
-                ),
-              ),
-
-
-
-            ],
-          )
-
-      ),
-      drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
+   drawer: Widgets.drawer(context),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
           children: <Widget>[
-            DrawerHeader(
-              child: Container(
-          child: Ink(
-          decoration: ShapeDecoration(
-          color: Colors.green,
-          shape: CircleBorder(),
-        ),
-        child: IconButton(
-          icon: Icon(Icons.android),
-          color: Colors.white,
-          onPressed: () {
+            Container(
+              padding: EdgeInsets.all(5),
+              height: 400,
+              child: GridView.count(
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 2,
+                children: <Widget>[
+                  Container(
 
-          },))
+                  )
+                ],
               ),
-              decoration: BoxDecoration(
-                color: Colors.orange,
-              ),
-            ),
-            ListTile(
-              title: Text('Acceuil'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/messages');
-              },
-            ),
-            ListTile(
-              title: Text('Recharge'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/settings');
-              },
-            ),
-            ListTile(
-              title: Text('Mon Compte'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/settings');
-              },
-            ),
-            ListTile(
-              title: Text('A Propos'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/settings');
-              },
-            ),
+            )
           ],
+
         ),
       ),
     );
