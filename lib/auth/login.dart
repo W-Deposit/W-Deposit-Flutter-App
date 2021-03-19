@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'dart:convert' show json, base64, ascii;
+import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   runApp(Login());
 }
@@ -16,43 +16,77 @@ class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
-void displayDialog(BuildContext context, String title, String text) =>
-    showDialog(
-      context: context,
-      builder: (context) =>
-          AlertDialog(
-              title: Text(title),
-              content: Text(text)
-          ),
-    );
-final storage = FlutterSecureStorage();
 
-final TextEditingController _usernameController = TextEditingController();
-final TextEditingController _passwordController = TextEditingController();
-Future<String> attemptLogIn(String email, String password) async {
-  const  baseUrl = 'https://w-deposit.herokuapp.com/api';
-
-  Map<String,String> headers = {'Content-Type':'application/json'};
-  final msg = jsonEncode({'email':email,'password':password});
-  var res = await http.post(
-      "$baseUrl/login",
-      headers: headers,
-      body: msg
-  );
-  print(res.body);
-  if(res.statusCode == 200) return res.body;
-  return null;
-}
 class _LoginState extends State<Login> {
-
+  String value;
+  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController passwordController = new TextEditingController();
+  bool _showPassword = false;
+  bool _isLoading = false;
   @override
+  void _showcontent() {
+    showDialog(
+      context: context, barrierDismissible: false, // user must tap button!
 
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          title: new Text(' '),
+          content: new SingleChildScrollView(
+            child: new ListBody(
+              children: [
+                new Text('Veuillez remplir le formulaire requis pour continuer.' ,style: TextStyle(color: Colors.orange)),
+              ],
+            ),
+          ),
+          actions: [
+            new FlatButton(
+              child: new Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  signIn(String email, pass) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    Map<String,String> headers = {'Content-Type':'application/json'};
+    final msg = jsonEncode({'email':email,'password':pass});
+
+    var jsonResponse = null;
+    var response = await http.post("https://w-deposit.herokuapp.com/api/login", body: msg,headers: headers);
+    print(response);
+    if(response.statusCode == 200) {
+      jsonResponse = json.decode(response.body);
+      if(jsonResponse != null) {
+        print(jsonResponse['username']);
+        setState(() {
+          _isLoading = false;
+        });
+        sharedPreferences.setString("token", jsonResponse['token']);
+        sharedPreferences.setString("username", jsonResponse['username']);
+
+        value = jsonResponse['username'];
+        // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Home()), (Route<dynamic> route) => false);
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home(value:value)));
+      }
+    }
+    else {
+      setState(() {
+        _isLoading = false;
+      });
+      print(response.body);
+    }
+  }
   Widget build(BuildContext context) {
     return Scaffold(
 
 
       body: SingleChildScrollView(
-        child: Column(
+
+        child: _isLoading? Center(child: CircularProgressIndicator()) :Column(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(top: 200.0,bottom: 30),
@@ -71,9 +105,14 @@ class _LoginState extends State<Login> {
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
-                controller: _usernameController,
+
+                controller: emailController,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
+                    prefixIcon: const Icon(
+                      Icons.person,
+                      color: Colors.blue,
+                    ),
                     labelText: 'Email',
                     hintText: 'Ex:abc@gmail.com'),
               ),
@@ -83,13 +122,27 @@ class _LoginState extends State<Login> {
                   left: 15.0, right: 15.0, top: 15, bottom: 0),
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
-                controller: _passwordController,
-                obscureText: true,
+                obscureText: !this._showPassword,
+                controller: passwordController,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Mot de passe',
-                    hintText: '*******'),
+                  border: new OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.blue)),
+                  hintText: '*******',
+
+                  labelText: 'Mot de passe',
+                  prefixIcon: Icon(Icons.security,color: Colors.blue,),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      Icons.remove_red_eye,
+                      color: this._showPassword ? Colors.blue : Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() => this._showPassword = !this._showPassword);
+                    },
+                  ),
+                ),
               ),
+
             ),
             FlatButton(
               onPressed: (){
@@ -107,25 +160,23 @@ class _LoginState extends State<Login> {
               height: 55,
               width: 380,
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
               child: FlatButton(
-                onPressed: () async{
-                  var username = _usernameController.text;
-                  var password = _passwordController.text;
+                onPressed: () {
+                  if(emailController.text == "" || passwordController.text == "" ){
 
-                  var token = await attemptLogIn(username, password);
-                  if(token != null) {
-                    storage.write(key: "jwt", value: token);
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  }else{
+                    setState(() {
+                      _isLoading = true;
 
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Home()
-                        )
-                    );
-                  } else {
-                    displayDialog(context, "An Error Occurred", "No account was found matching that username and password");
+                    });
+                    signIn(emailController.text, passwordController.text);
                   }
+
+
 
                 },
                 child: Text(
@@ -165,5 +216,4 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-}
+  }}

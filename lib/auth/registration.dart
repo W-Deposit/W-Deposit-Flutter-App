@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'login.dart';
 class Registration extends StatefulWidget {
   @override
   _RegistrationState createState() => _RegistrationState();
@@ -120,7 +120,7 @@ Container(
 
               child:new InkWell(
                 onTap: () {
-
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Login()));
                 },
                 child: new Padding(
                   padding: new EdgeInsets.all(10.0),
