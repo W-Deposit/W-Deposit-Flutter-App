@@ -34,6 +34,12 @@ dependencies:
   intl: ^0.16.1
   cached_network_image: ^2.2.0+1
   graphql_flutter: ^3.0.0
+  bottom_navy_bar: ^3.0.0
+  flutter_secure_storage: ^3.3.1+1
+  rounded_loading_button: ^1.0.0
+  font_awesome_flutter: ^8.8.1
+
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
 
@@ -61,6 +67,7 @@ flutter:
     - assets/logo.png
     - assets/logo1.jpeg
     - assets/money.jpg
+    - assets/logo1.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

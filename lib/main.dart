@@ -1,17 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'auth/login.dart';
-import 'package:google_fonts/google_fonts.dart';
-
+import 'auth/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
 
   @override
+
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  SharedPreferences sharedPreferences;
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  checkLoginStatus() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if(sharedPreferences.getString("token") == null) {
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Login()), (Route<dynamic> route) => false);
+    }
+  }
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -95,12 +113,12 @@ class _MyHomePageState extends State<MyHomePage> {
               fontSize: 16.0,
               color: Color(0xff2E41),
             ),
-              titlePadding:EdgeInsets.only(bottom: 48)
+              titlePadding:EdgeInsets.only(bottom: 58)
           ),
-          title: "Vos transactions sont très sécurisées avec l'application W-Deposit.",
+          title: "Vos transactions sont très sécurisées avec l'application"+"\n"+" W-Deposit.",
           body: "",
           footer:SizedBox(
-            width: 300,
+            width: 350,
             height: 60,
             child: FlatButton(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -149,4 +167,5 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
 }
