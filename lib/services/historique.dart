@@ -6,19 +6,16 @@ import '../auth/utils/p.dart';
 import '../auth/utils/g.dart';
 import '../auth/login.dart';
 import '../auth/home.dart';
-import 'airtel.dart';
-import 'mpesa.dart';
-import 'orange.dart';
-import 'africel.dart';
-import 'achat.dart';
-class Unite extends StatefulWidget {
+import '../services/bank.dart';
+import '../services/unite.dart';
+class Historique extends StatefulWidget {
 
 
   @override
-  _UniteState createState() => _UniteState();
+  _HistoriqueState createState() => _HistoriqueState();
 }
 
-class _UniteState extends State<Unite> {
+class _HistoriqueState extends State<Historique> {
   void initState() {
 
     super.initState();
@@ -27,6 +24,8 @@ class _UniteState extends State<Unite> {
   }
   SharedPreferences sharedPreferences;
   var value;
+  @override
+
   var username = "";
   _read() async {
     final prefs = await SharedPreferences.getInstance();
@@ -39,14 +38,14 @@ class _UniteState extends State<Unite> {
       username = value;
     });
   }
-  @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Color(0xffFFCC2C),
         title: Text(
-          "MOBILE MONEY",
+          "Historique",
           style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
         ),
       ),
@@ -90,7 +89,7 @@ class _UniteState extends State<Unite> {
                 title: Text('Historique',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15) ),
                 leading: Icon(Icons.account_balance_wallet),
                 onTap: () {
-                  print("Clicked");
+                  print(username);
                 },
               ),
 
@@ -125,111 +124,71 @@ class _UniteState extends State<Unite> {
       ),
       body: Container(
         padding: EdgeInsets.all(20),
-        child: Column(
+        child: ListView(
           children: [
 
 
             //padding: EdgeInsets.only(left: 25,),
-            Container(
-              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-              height: 55,
-              width: 380,
-              decoration: BoxDecoration(
-                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Airtel()));
-                },
 
-                child: Text(
-                  'AIRTEL MONEY',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ),
-            ),
-            Container(
-              height: 55,
-              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-              width: 380,
-              decoration: BoxDecoration(
-                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Mpesa()));
-                },
+        Card(
+        child: Center(
+          child: Column(
 
-                child: Text(
-                  'M-PESA',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(bottom: 30),
+                alignment: Alignment.center,
+                child: Text("0283-0000145-60-03",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 22)),
               ),
-            ),
-            Container(
-              height: 55,
-              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-              width: 380,
-              decoration: BoxDecoration(
-                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Orange()));
-                },
+              Row(
+                children: [
+                  Container(
 
-                child: Text(
-                  'ORANGE MONEY',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ),
-            ),
-            Container(
-              height: 55,
-              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-              width: 380,
-              decoration: BoxDecoration(
-                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Africel()));
-                },
+                    padding: EdgeInsets.only(right: 30,left: 5),
 
-                child: Text(
-                  'AFRICEL MONEY',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ),
-            ),
-            Container(
-              height: 55,
-              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-              width: 380,
-              decoration: BoxDecoration(
-                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Achat()));
-                },
+                    child: Text("Equity bank,",
+                        style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Color(0xff2F2E41),
+                            fontSize: 16)),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(right: 30),
+                    child: Text("Dépot,",
+                        style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Color(0xff2F2E41),
+                            fontSize: 16)),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(right: 30),
+                    child: Text("\$100",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 16,)),
+                  ),
+                  Container(
 
-                child: Text(
-                  'ACHAT UNITE',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
+                    child: Text("Transfert",
+                        style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.blue,
+                            fontSize: 16)),
+                  ),
+
+                ],
               ),
-            ),
+
+            ],
+          ),
+        ),
+      )
+
           ],
 
         ),

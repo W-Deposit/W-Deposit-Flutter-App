@@ -68,6 +68,12 @@ flutter:
     - assets/logo1.jpeg
     - assets/money.jpg
     - assets/logo1.jpeg
+    - assets/airtel.png
+    - assets/orange.png
+    - assets/africel.png
+    - assets/mpesa.png
+    - assets/achat.png
+    - assets/deposit.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

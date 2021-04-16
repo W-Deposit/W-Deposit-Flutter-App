@@ -16,8 +16,26 @@ class Bank extends StatefulWidget {
 }
 
 class _BankState extends State<Bank> {
+  void initState() {
+
+    super.initState();
+    _read();
+
+  }
   SharedPreferences sharedPreferences;
   var value;
+  var username = "";
+  _read() async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'email';
+    final value = prefs.getString(key) ?? 0;
+    print('read: $value');
+
+
+    setState(() {
+      username = value;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +67,7 @@ class _BankState extends State<Bank> {
                               child: Icon(Icons.account_box, size: 40,),
                             ),
                           ),
-                          TextSpan(text: 'Email.com',style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(text: username,style: TextStyle(fontWeight: FontWeight.bold)),
                         ],
                       ),
                     )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kwadoo_mobile/services/wedeposit.dart';
 import 'package:kwadoo_mobile/widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../auth/utils/m.dart';
@@ -8,6 +9,7 @@ import '../auth/login.dart';
 import '../auth/home.dart';
 import '../services/bank.dart';
 import '../services/unite.dart';
+import 'wedeposit.dart';
 class Deposit extends StatefulWidget {
 
 
@@ -16,8 +18,26 @@ class Deposit extends StatefulWidget {
 }
 
 class _DepositState extends State<Deposit> {
+  void initState() {
+
+    super.initState();
+    _read();
+
+  }
   SharedPreferences sharedPreferences;
   var value;
+  var username = "";
+  _read() async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'email';
+    final value = prefs.getString(key) ?? 0;
+    print('read: $value');
+
+
+    setState(() {
+      username = value;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +69,7 @@ class _DepositState extends State<Deposit> {
                               child: Icon(Icons.account_box, size: 40,),
                             ),
                           ),
-                          TextSpan(text: 'Email.com',style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(text:username,style: TextStyle(fontWeight: FontWeight.bold)),
                         ],
                       ),
                     )
@@ -117,7 +137,10 @@ Container(
       color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
   child: FlatButton(
     onPressed: () {
-
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Wedepsoit()));
       },
 
     child: Text(

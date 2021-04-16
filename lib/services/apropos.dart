@@ -6,19 +6,16 @@ import '../auth/utils/p.dart';
 import '../auth/utils/g.dart';
 import '../auth/login.dart';
 import '../auth/home.dart';
-import 'airtel.dart';
-import 'mpesa.dart';
-import 'orange.dart';
-import 'africel.dart';
-import 'achat.dart';
-class Unite extends StatefulWidget {
+import '../services/bank.dart';
+import '../services/unite.dart';
+class Apropos extends StatefulWidget {
 
 
   @override
-  _UniteState createState() => _UniteState();
+  _AproposState createState() => _AproposState();
 }
 
-class _UniteState extends State<Unite> {
+class _AproposState extends State<Apropos> {
   void initState() {
 
     super.initState();
@@ -27,6 +24,7 @@ class _UniteState extends State<Unite> {
   }
   SharedPreferences sharedPreferences;
   var value;
+  @override
   var username = "";
   _read() async {
     final prefs = await SharedPreferences.getInstance();
@@ -39,14 +37,13 @@ class _UniteState extends State<Unite> {
       username = value;
     });
   }
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Color(0xffFFCC2C),
         title: Text(
-          "MOBILE MONEY",
+          "A propos",
           style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
         ),
       ),
@@ -125,111 +122,26 @@ class _UniteState extends State<Unite> {
       ),
       body: Container(
         padding: EdgeInsets.all(20),
-        child: Column(
+        child: ListView(
           children: [
 
 
-            //padding: EdgeInsets.only(left: 25,),
-            Container(
-              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-              height: 55,
-              width: 380,
-              decoration: BoxDecoration(
-                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Airtel()));
-                },
 
-                child: Text(
-                  'AIRTEL MONEY',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ),
-            ),
-            Container(
-              height: 55,
-              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-              width: 380,
-              decoration: BoxDecoration(
-                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Mpesa()));
-                },
 
-                child: Text(
-                  'M-PESA',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ),
-            ),
-            Container(
-              height: 55,
-              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-              width: 380,
-              decoration: BoxDecoration(
-                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Orange()));
-                },
 
-                child: Text(
-                  'ORANGE MONEY',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ),
-            ),
-            Container(
-              height: 55,
-              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-              width: 380,
-              decoration: BoxDecoration(
-                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Africel()));
-                },
+                    Container(
 
-                child: Text(
-                  'AFRICEL MONEY',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ),
-            ),
-            Container(
-              height: 55,
-              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-              width: 380,
-              decoration: BoxDecoration(
-                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Achat()));
-                },
 
-                child: Text(
-                  'ACHAT UNITE',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ),
-            ),
+                      child: Text("W-DEPOSIT est une plate-forme mobile permettant aux gens d'envoyer et de recevoir de l'argent facilement et rapidement.",
+                          style: TextStyle(
+
+                              fontSize: 22)),
+                    ),
+
+
+
+
+
           ],
 
         ),

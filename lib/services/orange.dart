@@ -8,14 +8,14 @@ import '../auth/login.dart';
 import '../auth/home.dart';
 import '../services/bank.dart';
 import '../services/unite.dart';
-class BankDetails extends StatefulWidget {
+class Orange extends StatefulWidget {
 
 
   @override
-  _BankDetailsState createState() => _BankDetailsState();
+  _OrangeState createState() => _OrangeState();
 }
 
-class _BankDetailsState extends State<BankDetails> {
+class _OrangeState extends State<Orange> {
   void initState() {
 
     super.initState();
@@ -43,7 +43,7 @@ class _BankDetailsState extends State<BankDetails> {
         centerTitle: true,
         backgroundColor: Color(0xffFFCC2C),
         title: Text(
-          "COORDONNEES BANCAIRES",
+          "Orange Money",
           style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
         ),
       ),
@@ -125,112 +125,39 @@ class _BankDetailsState extends State<BankDetails> {
         child: ListView(
           children: [
 
-
             //padding: EdgeInsets.only(left: 25,),
             Container(
-child: Text('Veuillez compléter les éléménts à board pour effectuer un transfert.',style: TextStyle(fontSize: 20,),),
+              child: Image.asset('assets/orange.png'),
             ),
             Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Numero de compte',
-
-                    prefixIcon: const Icon(
-                      Icons.account_balance,
-                      color: Color(0xff00ACED),
-                    ),
-                   ),
-              ),
-
-
-              ),
-            Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Intitulé du compte ou Nom du beneficiaire',
-
-
-                    prefixIcon: const Icon(
-                      Icons.person,
-                      color: Color(0xff00ACED),
-                    ),
-                 ),
-              ),
-
-
+              child:Text('Envoyez de l’argent avec Orange Money .',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
             ),
+            SizedBox(height: 20,),
             Container(
-              padding: EdgeInsets.only(top:20 ),
+
               child:  TextField(
 
                 decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Nom du deposant',
+                  border: new OutlineInputBorder(
+                      borderSide: new BorderSide(color: Color(0xff00ACED))),
+                  hintText: 'Entrer le numéro',
 
-                    prefixIcon: const Icon(
-                      Icons.assignment,
-                      color: Color(0xff00ACED),
-                    ),
-                    ),
+                  prefixIcon: const Icon(
+                    Icons.phone_iphone,
+                    color: Color(0xff00ACED),
+                  ),
+                ),
               ),
 
 
-            ),
-            Container(
+            ),    Container(
               padding: EdgeInsets.only(top:20 ),
               child:  TextField(
 
                 decoration: new InputDecoration(
                     border: new OutlineInputBorder(
                         borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Numero de telepone du beneficaire',
-
-
-                    prefixIcon: const Icon(
-                      Icons.phone_iphone,
-                      color: Color(0xff00ACED),
-                    ),
-                 ),
-              ),
-
-
-            ),
-            Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Adresse du déposant',
-
-
-                    prefixIcon: const Icon(
-                      Icons.home,
-                      color: Color(0xff00ACED),
-                    ),
-                   ),
-              ),
-
-
-            ),
-            Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Montant',
+                    hintText: 'Entrer le montant',
 
 
                     prefixIcon: const Icon(
@@ -244,9 +171,9 @@ child: Text('Veuillez compléter les éléménts à board pour effectuer un tran
 
 
             ),
-            SizedBox(height: 20,),
+            SizedBox(height:20),
             Container(
-height: 60,
+              height: 60,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: Color(0xff00ACED),
@@ -257,7 +184,7 @@ height: 60,
 
                 },
                 child: Text(
-                  'DEPOSER',
+                  'ENVOYER',
                   style: TextStyle(  color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
                 ),
               ),

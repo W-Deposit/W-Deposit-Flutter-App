@@ -8,14 +8,14 @@ import '../auth/login.dart';
 import '../auth/home.dart';
 import '../services/bank.dart';
 import '../services/unite.dart';
-class BankDetails extends StatefulWidget {
+class Wedepsoit extends StatefulWidget {
 
 
   @override
-  _BankDetailsState createState() => _BankDetailsState();
+  _WedepsoitState createState() => _WedepsoitState();
 }
 
-class _BankDetailsState extends State<BankDetails> {
+class _WedepsoitState extends State<Wedepsoit> {
   void initState() {
 
     super.initState();
@@ -43,7 +43,7 @@ class _BankDetailsState extends State<BankDetails> {
         centerTitle: true,
         backgroundColor: Color(0xffFFCC2C),
         title: Text(
-          "COORDONNEES BANCAIRES",
+          "Recharge - Transfert",
           style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
         ),
       ),
@@ -128,109 +128,57 @@ class _BankDetailsState extends State<BankDetails> {
 
             //padding: EdgeInsets.only(left: 25,),
             Container(
-child: Text('Veuillez compléter les éléménts à board pour effectuer un transfert.',style: TextStyle(fontSize: 20,),),
+              child: Image.asset('assets/deposit.png',height: 200,),
             ),
             Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
 
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Numero de compte',
+padding: EdgeInsets.all(5),
+              child: Text('ID:W-D010000000339'+'\n'+'Type: Compte W-Deposit'+'\n'+'Name: Venceslas Josh.'+'\n'+'Solde:' +'\$'+' 2500',textAlign: TextAlign.center,style: TextStyle(fontSize: 18,fontWeight:FontWeight.bold),),
+              decoration: BoxDecoration(
+                color: Color(0xffFAFCFE),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(7),
+                    topRight: Radius.circular(7),
+                    bottomLeft: Radius.circular(7),
+                    bottomRight: Radius.circular(7)
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(1),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
 
-                    prefixIcon: const Icon(
-                      Icons.account_balance,
-                      color: Color(0xff00ACED),
-                    ),
-                   ),
               ),
-
-
-              ),
-            Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Intitulé du compte ou Nom du beneficiaire',
-
-
-                    prefixIcon: const Icon(
-                      Icons.person,
-                      color: Color(0xff00ACED),
-                    ),
-                 ),
-              ),
-
-
             ),
+            SizedBox(height: 20,),
             Container(
-              padding: EdgeInsets.only(top:20 ),
+
               child:  TextField(
 
                 decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Nom du deposant',
+                  border: new OutlineInputBorder(
+                      borderSide: new BorderSide(color: Color(0xff00ACED))),
+                  hintText: 'Numero du compte w-deposit',
 
-                    prefixIcon: const Icon(
-                      Icons.assignment,
-                      color: Color(0xff00ACED),
-                    ),
-                    ),
+                  prefixIcon: const Icon(
+                    Icons.phone_iphone,
+                    color: Color(0xff00ACED),
+                  ),
+                ),
               ),
 
 
-            ),
-            Container(
+            ),    Container(
               padding: EdgeInsets.only(top:20 ),
               child:  TextField(
 
                 decoration: new InputDecoration(
                     border: new OutlineInputBorder(
                         borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Numero de telepone du beneficaire',
-
-
-                    prefixIcon: const Icon(
-                      Icons.phone_iphone,
-                      color: Color(0xff00ACED),
-                    ),
-                 ),
-              ),
-
-
-            ),
-            Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Adresse du déposant',
-
-
-                    prefixIcon: const Icon(
-                      Icons.home,
-                      color: Color(0xff00ACED),
-                    ),
-                   ),
-              ),
-
-
-            ),
-            Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Montant',
+                    hintText: 'Entrer le montant',
 
 
                     prefixIcon: const Icon(
@@ -244,9 +192,9 @@ child: Text('Veuillez compléter les éléménts à board pour effectuer un tran
 
 
             ),
-            SizedBox(height: 20,),
+            SizedBox(height:20),
             Container(
-height: 60,
+              height: 60,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: Color(0xff00ACED),
@@ -257,7 +205,7 @@ height: 60,
 
                 },
                 child: Text(
-                  'DEPOSER',
+                  'VALIDER OPERATION',
                   style: TextStyle(  color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
                 ),
               ),

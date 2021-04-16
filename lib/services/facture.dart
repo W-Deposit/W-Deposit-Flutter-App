@@ -6,16 +6,20 @@ import '../auth/utils/p.dart';
 import '../auth/utils/g.dart';
 import '../auth/login.dart';
 import '../auth/home.dart';
-import '../services/bank.dart';
-import '../services/unite.dart';
-class BankDetails extends StatefulWidget {
+import 'airtel.dart';
+import 'mpesa.dart';
+import 'orange.dart';
+import 'africel.dart';
+import 'achat.dart';
+import 'abonnement.dart';
+class Facture extends StatefulWidget {
 
 
   @override
-  _BankDetailsState createState() => _BankDetailsState();
+  _FactureState createState() => _FactureState();
 }
 
-class _BankDetailsState extends State<BankDetails> {
+class _FactureState extends State<Facture> {
   void initState() {
 
     super.initState();
@@ -43,7 +47,7 @@ class _BankDetailsState extends State<BankDetails> {
         centerTitle: true,
         backgroundColor: Color(0xffFFCC2C),
         title: Text(
-          "COORDONNEES BANCAIRES",
+          "Payer vos factures",
           style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
         ),
       ),
@@ -122,143 +126,79 @@ class _BankDetailsState extends State<BankDetails> {
       ),
       body: Container(
         padding: EdgeInsets.all(20),
-        child: ListView(
+        child: Column(
           children: [
 
 
             //padding: EdgeInsets.only(left: 25,),
+
+
+
             Container(
-child: Text('Veuillez compléter les éléménts à board pour effectuer un transfert.',style: TextStyle(fontSize: 20,),),
-            ),
-            Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Numero de compte',
-
-                    prefixIcon: const Icon(
-                      Icons.account_balance,
-                      color: Color(0xff00ACED),
-                    ),
-                   ),
-              ),
-
-
-              ),
-            Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Intitulé du compte ou Nom du beneficiaire',
-
-
-                    prefixIcon: const Icon(
-                      Icons.person,
-                      color: Color(0xff00ACED),
-                    ),
-                 ),
-              ),
-
-
-            ),
-            Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Nom du deposant',
-
-                    prefixIcon: const Icon(
-                      Icons.assignment,
-                      color: Color(0xff00ACED),
-                    ),
-                    ),
-              ),
-
-
-            ),
-            Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Numero de telepone du beneficaire',
-
-
-                    prefixIcon: const Icon(
-                      Icons.phone_iphone,
-                      color: Color(0xff00ACED),
-                    ),
-                 ),
-              ),
-
-
-            ),
-            Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Adresse du déposant',
-
-
-                    prefixIcon: const Icon(
-                      Icons.home,
-                      color: Color(0xff00ACED),
-                    ),
-                   ),
-              ),
-
-
-            ),
-            Container(
-              padding: EdgeInsets.only(top:20 ),
-              child:  TextField(
-
-                decoration: new InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(color: Color(0xff00ACED))),
-                    hintText: 'Montant',
-
-
-                    prefixIcon: const Icon(
-                      Icons.monetization_on,
-                      color: Color(0xff00ACED),
-                    ),
-                    prefixText: ' ',
-                    suffixText: 'USD',
-                    suffixStyle: const TextStyle(color: Color(0xff00ACED))),
-              ),
-
-
-            ),
-            SizedBox(height: 20,),
-            Container(
-height: 60,
+              height: 55,
+              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+              width: 380,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Color(0xff00ACED),
+                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
+              child: FlatButton(
+                onPressed: () {
+                 
+                },
+
+                child: Text(
+                  'ABONNEMENT TV',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
               ),
-              child:FlatButton(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                onPressed: (){
+            ),
+            Container(
+              height: 55,
+              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+              width: 380,
+              decoration: BoxDecoration(
+                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
+              child: FlatButton(
+                onPressed: () {
 
                 },
+
                 child: Text(
-                  'DEPOSER',
-                  style: TextStyle(  color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
+                  'PAIEMENT ELECTRICITE',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+            ),
+            Container(
+              height: 55,
+              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+              width: 380,
+              decoration: BoxDecoration(
+                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
+              child: FlatButton(
+                onPressed: () {
+
+                },
+
+                child: Text(
+                  'EDUCATION',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+            ),
+            Container(
+              height: 55,
+              margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+              width: 380,
+              decoration: BoxDecoration(
+                  color: Color(0xff00ACED), borderRadius: BorderRadius.circular(10)),
+              child: FlatButton(
+                onPressed: () {
+
+                },
+
+                child: Text(
+                  'RESERVATION TICKETS',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ),

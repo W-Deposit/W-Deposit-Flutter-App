@@ -24,6 +24,13 @@ class _LoginState extends State<Login> {
   bool _showPassword = false;
   bool _isLoading = false;
   @override
+  _save() async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'my_int_key';
+    final value = 42;
+    prefs.setInt(key, value);
+    print('saved $value');
+  }
   void _showcontent() {
     showDialog(
       context: context, barrierDismissible: false, // user must tap button!
@@ -60,15 +67,24 @@ class _LoginState extends State<Login> {
     print(response);
     if(response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
+      print(jsonResponse['wdeposit']);
       if(jsonResponse != null) {
         print(jsonResponse['username']);
         setState(() {
           _isLoading = false;
         });
-        sharedPreferences.setString("token", jsonResponse['token']);
-        sharedPreferences.setString("username", jsonResponse['username']);
-
-        value = jsonResponse['username'];
+        final token = jsonResponse['token'];
+        final email = jsonResponse['username'];
+     // final wdeposit = jsonResponse['wdeposit'];
+        final prefs = await SharedPreferences.getInstance();
+        final key = 'token';
+        final value = token;
+        prefs.setString(key, value);
+        prefs.setString('email', email);
+      // prefs.setString('wdeposit', wdeposit);
+        print('saved $value');
+        print('saved $email');
+       // print('saved $wdeposit');
         // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Home()), (Route<dynamic> route) => false);
         Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home(value:value)));
       }
@@ -86,7 +102,7 @@ class _LoginState extends State<Login> {
 
       body: SingleChildScrollView(
 
-        child: _isLoading? Center(child: CircularProgressIndicator()) :Column(
+        child: _isLoading? Container( width: 100, height: 70, margin: const EdgeInsets.only(top: 300,left: 150),child: CircularProgressIndicator( valueColor:AlwaysStoppedAnimation<Color>(Colors.orange),strokeWidth: 10,),) :Column(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(top: 200.0,bottom: 30),

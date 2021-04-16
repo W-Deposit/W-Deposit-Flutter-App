@@ -3,6 +3,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
 import 'login.dart';
+import 'home.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class Registration extends StatefulWidget {
   @override
   _RegistrationState createState() => _RegistrationState();
@@ -10,10 +14,79 @@ class Registration extends StatefulWidget {
 
 class _RegistrationState extends State<Registration> {
   bool _isLoading = false;
+  String _chosenValue;
+  void _showcontent(String msg) {
+    showDialog(
+      context: context, barrierDismissible: false, // user must tap button!
+
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          title: new Text(' '),
+          content: new SingleChildScrollView(
+            child: new ListBody(
+              children: [
+                new Text(msg ,style: TextStyle(color: Colors.orange)),
+              ],
+            ),
+          ),
+          actions: [
+            new FlatButton(
+              child: new Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController namecontroller = TextEditingController();
+  signIn(String email, pass,phone,name,gender) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    Map<String,String> headers = {'Content-Type':'application/json'};
+    final msg = jsonEncode({'email':email,'password':pass,'phonenumber':phone,'firstname':name,'gender':gender});
 
+    var jsonResponse = null;
+    var response = await http.post("https://w-deposit.herokuapp.com/api/register", body: msg,headers: headers);
 
+    print(msg);
+
+    if(response.statusCode == 200) {
+      jsonResponse = json.decode(response.body);
+
+      if(jsonResponse != null) {
+        setState(() {
+          _isLoading = false;
+        });
+        final token = jsonResponse['token'];
+        final message = jsonResponse['msg'];
+        final email = jsonResponse['username'];
+        //  final wdeposit = jsonResponse['wdeposit'];
+        final prefs = await SharedPreferences.getInstance();
+        final key = 'token';
+        final value = token;
+        prefs.setString(key, value);
+        prefs.setString('email', email);
+        //   prefs.setString('wdeposit', wdeposit);
+        print('saved $value');
+        print('saved $email');
+        // print('saved $wdeposit');
+        // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Home()), (Route<dynamic> route) => false);
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home()));
+      }
+    }
+    else {
+      _showcontent(response.body);
+      setState(() {
+        _isLoading = false;
+      });
+      print(response.body);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -24,10 +97,10 @@ class _RegistrationState extends State<Registration> {
         title: Text('Créer un compte'),
         leading: Container(),
       ),
-      body:Container(
+      body:_isLoading? Container( width: 100, height: 70, margin: const EdgeInsets.only(top: 300,left: 150),child: CircularProgressIndicator( valueColor:AlwaysStoppedAnimation<Color>(Colors.orange),strokeWidth: 10,),) :Container(
         padding: const EdgeInsets.only(top: 30,left: 30,right: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
+
           children: <Widget>[
 
 Container(
@@ -38,7 +111,7 @@ Container(
 ),
 Container(
   child:    TextField(
-    controller: phoneController,
+    controller: emailController,
     decoration: const InputDecoration(
       // contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 20),
       labelText: 'Email :',
@@ -46,11 +119,49 @@ Container(
 
   ),
 ),
+            Container(
+              child:    TextField(
+                controller: namecontroller,
+                decoration: const InputDecoration(
+                  // contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                  labelText: 'Nom:',
+                ),
 
+              ),
+            ),
+            DropdownButton<String>(
+              focusColor:Colors.white,
+              value: _chosenValue,
+              //elevation: 5,
+              style: TextStyle(color: Colors.white),
+              iconEnabledColor:Colors.black,
+              items: <String>[
+                ' M',
+                'F',
+
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value,style:TextStyle(color:Colors.black),),
+                );
+              }).toList(),
+              hint:Text(
+                "Choisissez votre genre:",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500),
+              ),
+              onChanged: (String value) {
+                setState(() {
+                  _chosenValue = value;
+                });
+              },
+            ),
 Container(
   padding: EdgeInsets.only(top:20 ),
   child:TextField(
-    controller: passwordController,
+    controller: phoneController,
     decoration: const InputDecoration(
       labelText: 'Numero de telephone :',
     ),
@@ -61,7 +172,7 @@ Container(
 Container(
   padding: EdgeInsets.only(top:20 ),
   child:  TextField(
-  controller: passwordController,
+
   decoration: const InputDecoration(
     labelText: 'Mot de passe :',
   ),
@@ -94,10 +205,18 @@ Container(
                   onPressed: () async {
                     // On button presed
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(),
-                    );
+                    if(emailController.text == "" || passwordController.text == ""  ){
+
+                      setState(() {
+                        _isLoading = false;
+                      });
+                    }else{
+                      setState(() {
+                        _isLoading = true;
+
+                      });
+                      signIn(emailController.text, passwordController.text,phoneController.text,namecontroller.text,_chosenValue);
+                    }
                   },
                   child: Text(
                     "Soumettre",

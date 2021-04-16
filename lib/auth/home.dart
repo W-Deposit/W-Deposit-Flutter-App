@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kwadoo_mobile/services/achat.dart';
+import 'package:kwadoo_mobile/services/apropos.dart';
+import 'package:kwadoo_mobile/services/facture.dart';
+import 'package:kwadoo_mobile/services/historique.dart';
 import 'package:kwadoo_mobile/widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login.dart';
@@ -7,6 +11,8 @@ import './utils/p.dart';
 import './utils/g.dart';
 import '../services/deposit.dart';
 import '../services/unite.dart';
+import '../services/achat.dart';
+import '../services/facture.dart';
 class Home extends StatefulWidget {
   String value;
   Home({this.value});
@@ -16,17 +22,36 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  void initState() {
+
+    super.initState();
+    _read();
+
+  }
   SharedPreferences sharedPreferences;
   String value;
   _HomeState(this.value);
   @override
+  var username = "";
+  _read() async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'email';
+    final value = prefs.getString(key) ?? 0;
+    print('read: $value');
+
+
+        setState(() {
+      username = value;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Color(0xffFFCC2C),
         title: Text(
-          "Acceuil",
+          'Acceuil',
           style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
         ),
       ),
@@ -50,7 +75,7 @@ class _HomeState extends State<Home> {
                             child: Icon(Icons.account_box, size: 40,),
                           ),
                         ),
-                        TextSpan(text: value,style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: username,style: TextStyle(fontWeight: FontWeight.bold)),
                       ],
                     ),
                   )
@@ -60,6 +85,7 @@ class _HomeState extends State<Home> {
                 title: Text('Acceuil ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15) ,),
                 leading: Icon(Icons.home),
                 onTap: () {
+                  _read();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -70,7 +96,10 @@ class _HomeState extends State<Home> {
                 title: Text('Historique',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15) ),
                 leading: Icon(Icons.account_balance_wallet),
                 onTap: () {
-                  print("Clicked");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Historique()));
                 },
               ),
 
@@ -85,7 +114,10 @@ class _HomeState extends State<Home> {
                 title: Text('A propos',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15) ),
                 leading: Icon(Icons.info),
                 onTap: () {
-                  print("Clicked");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Apropos()));
                 },
               ),
               ListTile(
@@ -182,7 +214,7 @@ class _HomeState extends State<Home> {
                  Navigator.push(
                      context,
                      MaterialPageRoute(
-                         builder: (context) => Unite()));
+                         builder: (context) => Achat()));
                }
            )
        ),
@@ -196,7 +228,12 @@ class _HomeState extends State<Home> {
                leading: const Icon(Icons.description,size: 50, color:Color(0xff00ACED)),
                title: const Text("PAYER VOS FACTURES",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                subtitle: const Text('Effectuez vos transactions vers votre banque ou  votre mobile money. . ',style: TextStyle(color: Colors.black)),
-               onTap: () => print("ListTile")
+               onTap: () {
+                 Navigator.push(
+                     context,
+                     MaterialPageRoute(
+                         builder: (context) => Facture()));
+               }
            )
        ),
      ],

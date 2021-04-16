@@ -18,17 +18,24 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   SharedPreferences sharedPreferences;
 
-  @override
   void initState() {
+
     super.initState();
     checkLoginStatus();
+
   }
+  @override
+
 
   checkLoginStatus() async {
     sharedPreferences = await SharedPreferences.getInstance();
-    if(sharedPreferences.getString("token") == null) {
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Login()), (Route<dynamic> route) => false);
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'token';
+    final value = prefs.getString(key) ?? 0;
+    if(value) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home()));
     }
+    print(value);
   }
   Widget build(BuildContext context) {
     return MaterialApp(
